@@ -3,7 +3,7 @@ project(OOP_LABS)
 
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
-
+set(CMAKE_CXX_EXTENSIONS OFF)
 
 include(FetchContent)
 FetchContent_Declare(
@@ -17,6 +17,4 @@ if(BUILD_TESTS)
     enable_testing()
 endif()
 
-add_subdirectory(first_lab)
-add_subdirectory(second_lab)
-add_subdirectory(third_lab)
+add_subdirectory(forth_lab)

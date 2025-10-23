@@ -1,5 +1,5 @@
 #include <gtest/gtest.h>
-#include "closest_pair_tonum.h"
+#include "closest_pair_tonum.hpp"
 
 TEST(TaskTest, SmallNumTest) {
     Pair result = closest_pair_tonum(10);

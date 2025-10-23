@@ -1,6 +1,6 @@
 #include <iostream>
 #include <cmath>
-#include "closest_pair_tonum.h"
+#include "closest_pair_tonum.hpp"
 
 Pair closest_pair_tonum(int upper_limit) {
     int upper = -1, lower = -1;

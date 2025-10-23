@@ -1,5 +1,5 @@
 #include <iostream>
-#include "closest_pair_tonum.h";
+#include "closest_pair_tonum.hpp"
 
 int main() {
     Pair pair = closest_pair_tonum(50);

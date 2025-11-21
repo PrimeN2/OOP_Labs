@@ -18,3 +18,4 @@ if(BUILD_TESTS)
 endif()
 
 add_subdirectory(forth_lab)
+add_subdirectory(fifth_lab)

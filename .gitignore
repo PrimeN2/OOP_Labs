@@ -1,6 +1,8 @@
 # Prerequisites
 *.d
 
+**/build/
+**/_deps/
 build/
 
 # Compiled Object files

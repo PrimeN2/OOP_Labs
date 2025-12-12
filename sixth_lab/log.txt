@@ -1,0 +1,4 @@
+Murder --------
+Attacker: dragon NPC_2 34 473
+Killed: bull NPC_5 30 469
+

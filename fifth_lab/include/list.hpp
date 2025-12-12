@@ -56,34 +56,34 @@ public:
     }
 
     void* do_allocate(std::size_t bytes, std::size_t alignment) override {
-    if (bytes == 0) return nullptr;
+        if (bytes == 0) return nullptr;
 
-    const std::size_t aligned_bytes = align_up(bytes, alignment);
+        const std::size_t aligned_bytes = align_up(bytes, alignment);
 
-    std::uintptr_t start = reinterpret_cast<std::uintptr_t>(block);
-    std::uintptr_t aligned_start = (start + alignment - 1) & ~(alignment - 1);
-    std::size_t offset = static_cast<std::size_t>(aligned_start - start);
+        std::uintptr_t start = reinterpret_cast<std::uintptr_t>(block);
+        std::uintptr_t aligned_start = (start + alignment - 1) & ~(alignment - 1);
+        std::size_t offset = static_cast<std::size_t>(aligned_start - start);
 
-    while (offset + aligned_bytes <= block_size) {
-        void* ptr = block + offset;
+        while (offset + aligned_bytes <= block_size) {
+            void* ptr = block + offset;
 
-        if (reinterpret_cast<std::uintptr_t>(ptr) % alignment == 0) {
-            for (const auto& block : allocated_blocks) {
-                char* existing = static_cast<char*>(block.first);
-                std::size_t size = block.second;
-                if (!((ptr >= existing + size) || (static_cast<char*>(ptr) + aligned_bytes <= existing))) {
-                    goto next; 
+            if (reinterpret_cast<std::uintptr_t>(ptr) % alignment == 0) {
+                for (const auto& block : allocated_blocks) {
+                    char* existing = static_cast<char*>(block.first);
+                    std::size_t size = block.second;
+                    if (!((ptr >= existing + size) || (static_cast<char*>(ptr) + aligned_bytes <= existing))) {
+                        goto next; 
+                    }
                 }
+
+                allocated_blocks.emplace_back(ptr, bytes);
+                return ptr;
             }
-
-            allocated_blocks.emplace_back(ptr, bytes);
-            return ptr;
+        next:
+            offset++;
         }
-    next:
-        offset++;
-    }
 
-    throw std::bad_alloc();
+        throw std::bad_alloc();
 }
 
     void do_deallocate(void* ptr, std::size_t bytes, std::size_t) override {
@@ -184,7 +184,7 @@ public:
     void push_back(T&& value) {
         Node* new_node = static_cast<Node*>(resource->allocate(sizeof(Node)));
         try {
-            new (new_node) Node(std::move(value));  // ← теперь будет работать
+            new (new_node) Node(std::move(value));  
         } catch (...) {
             resource->deallocate(new_node, sizeof(Node));
             throw;

@@ -19,3 +19,4 @@ endif()
 
 add_subdirectory(forth_lab)
 add_subdirectory(fifth_lab)
+add_subdirectory(sixth_lab)
